@@ -3,13 +3,15 @@ package pl.jcode.organizer.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import pl.jcode.organizer.Main;
 import pl.jcode.organizer.domain.Event;
 
 public class MainWindowController {
 
-	private String newDate = null;
+	private String newDate = "";
+	private String newHour = "";
+	private String newDesc = "";
 
 	@FXML
 	private DatePicker datePicker;
@@ -18,45 +20,65 @@ public class MainWindowController {
 	private Button saveButton;
 
 	@FXML
-	private Label hourField;
+	private TextField hourField;
 
 	@FXML
-	private Label descField;
+	private TextField descField;
 
 	public void getDatePicker() {
-		newDate = datePicker.getValue().toString();
-		System.out.println(newDate);
+		try {
+			newDate = datePicker.getValue().toString();
+			System.out.println(newDate);
+		} catch (Exception e) {
+			newDate = "";
+			System.out.println("Wyst¹pi³ wyj¹tek (data)\n" + e);
+		}
 	}
 
 	public void saveEvent() {
-		
-		if (newDate != null) {
-			if (hourField.getText() != null) {
-				if (descField.getText() != null) {
+		try {
+			newHour = hourField.getText();
+		} catch (Exception e) {
+			newHour = "";
+			System.out.println("Wyst¹pi³ wyj¹tek (godzina)\n" + e);
+		}
+		try {
+			newDesc = descField.getText();
+		} catch (Exception e) {
+			newDesc = "";
+			System.out.println("Wyst¹pi³ wyj¹tek (event)\n" + e);
+		}
 
-					//add event to database
+		if (newDate.equals("")) {
+			System.out.println("Proszê wybraæ datê!");
+		} else {
+			if (newHour.equals("")) {
+				System.out.println("Podaj godzinê!");
+			} else {
+				if (newDesc.equals("")) {
+					System.out.println("Opisz wydarzenie!");
+				} else {
+					// add event to database
 					Event event = new Event();
 					event.setDate(newDate);
-					event.setHour("12:00");
-					event.setEvent("film w kinie");
+					event.setHour(newHour);
+					event.setEvent(newDesc);
 					Main.entityManager.getTransaction().begin();
 					Main.entityManager.persist(event);
 					Main.entityManager.getTransaction().commit();
 
-				} else {
-					System.out.println("Opisz wydarzenie!");
+					// show result on ListView
+					// showEventList(newDate);
+
+					// clear all fields
+					hourField.setText(null);
+					descField.setText(null);
+					newHour = null;
+					newDesc = null;
 				}
-			} else {
-				System.out.println("Podaj godzinê!");
 			}
-		} else {
-			System.out.println("Proszê wybraæ datê!");
 		}
-		
-		
-		
-		
-		
+
 	}
 
 }
