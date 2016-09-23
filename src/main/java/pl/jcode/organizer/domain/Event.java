@@ -6,13 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.type.DateType;
+
 @Entity
 public class Event {
 
 	@Id
 	@GeneratedValue
 	private long id;
-	private Date date;
+	private String date;
 	private String hour;
 	private String event;
 
@@ -24,11 +26,11 @@ public class Event {
 		this.id = id;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
