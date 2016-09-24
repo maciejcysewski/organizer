@@ -13,6 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import pl.jcode.organizer.Main;
+import pl.jcode.organizer.domain.AlertBox;
 import pl.jcode.organizer.domain.Event;
 
 public class MainWindowController {
@@ -66,13 +67,13 @@ public class MainWindowController {
 		}
 
 		if (newDate.equals("")) {
-			System.out.println("Prosze wybrac date!");
+			AlertBox.display("B³¹d!", "Nie wybrano daty!");
 		} else {
 			if (newHour.equals("")) {
-				System.out.println("Podaj godzine!");
+				AlertBox.display("B³¹d!", "Podaj godzine!");
 			} else {
 				if (newDesc.equals("")) {
-					System.out.println("Opisz wydarzenie!");
+					AlertBox.display("B³¹d!", "Opisz wydarzenie!");
 				} else {
 					// add event to database
 					Event event = new Event();
@@ -84,6 +85,7 @@ public class MainWindowController {
 					Main.entityManager.getTransaction().commit();
 
 					// show result on ListView
+					AlertBox.display("Sukces!", "Zapisano do bazy.");
 					showEventList(newDate);
 
 					// clear all fields
