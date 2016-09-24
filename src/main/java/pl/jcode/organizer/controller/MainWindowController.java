@@ -47,7 +47,7 @@ public class MainWindowController {
 			showEventList(newDate);
 		} catch (Exception e) {
 			newDate = "";
-			System.out.println("Wyst¹pi³ wyj¹tek (data)\n" + e);
+			System.out.println("Wystapil wyjatek (data)\n" + e);
 		}
 	}
 
@@ -56,20 +56,20 @@ public class MainWindowController {
 			newHour = hourField.getText();
 		} catch (Exception e) {
 			newHour = "";
-			System.out.println("Wyst¹pi³ wyj¹tek (godzina)\n" + e);
+			System.out.println("Wystapil wyjatek (godzina)\n" + e);
 		}
 		try {
 			newDesc = descField.getText();
 		} catch (Exception e) {
 			newDesc = "";
-			System.out.println("Wyst¹pi³ wyj¹tek (event)\n" + e);
+			System.out.println("Wystapil wyjatek (event)\n" + e);
 		}
 
 		if (newDate.equals("")) {
-			System.out.println("Proszê wybraæ datê!");
+			System.out.println("Prosze wybrac date!");
 		} else {
 			if (newHour.equals("")) {
-				System.out.println("Podaj godzinê!");
+				System.out.println("Podaj godzine!");
 			} else {
 				if (newDesc.equals("")) {
 					System.out.println("Opisz wydarzenie!");
